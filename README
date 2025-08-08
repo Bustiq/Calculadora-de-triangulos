@@ -1,1 +1,40 @@
-Hola
+Drawing lines between points in HTML using JavaScript is primarily achieved using the HTML Canvas API. This API provides a way to draw graphics on a web page using JavaScript.
+Here's how to draw lines between points on an HTML Canvas:
+1. Create the HTML Canvas:
+Código
+
+<canvas id="myCanvas" width="400" height="300" style="border:1px solid #000000;"></canvas>
+2. Get the Canvas Context in JavaScript:
+JavaScript
+
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d"); // Get the 2D rendering context
+3. Define the Points and Draw the Line:
+To draw a line, you use a sequence of methods:
+beginPath(): Starts a new path. This is crucial to ensure that subsequent drawing operations are part of a new, distinct shape.
+moveTo(x, y): Sets the starting point of the line without drawing anything. Think of it as lifting your pen and moving it to a new position. 
+lineTo(x, y): Draws a line from the current position to the specified (x, y) coordinates. 
+stroke(): Renders the defined path onto the canvas. This is what actually makes the line visible.
+JavaScript
+
+// Example: Drawing a single line between two points
+ctx.beginPath();
+ctx.moveTo(50, 50);   // Starting point (x, y)
+ctx.lineTo(200, 150); // Ending point (x, y)
+ctx.stroke();         // Draw the line
+4. Drawing Multiple Connected Lines:
+To draw multiple connected lines (a path), you can call lineTo() multiple times after a single moveTo() and beginPath():
+JavaScript
+
+ctx.beginPath();
+ctx.moveTo(10, 10);
+ctx.lineTo(100, 20);
+ctx.lineTo(50, 80);
+ctx.lineTo(10, 10); // Close the path to form a triangle
+ctx.stroke();
+5. Customizing Line Properties:
+You can customize the appearance of the lines before calling stroke():
+ctx.lineWidth = 5;: Sets the width of the line in pixels.
+ctx.strokeStyle = "red";: Sets the color of the line.
+ctx.lineCap = "round";: Defines the shape of the line's end points (e.g., "butt", "round", "square").
+ctx.lineJoin = "bevel";: Defines the shape of the corners when two lines meet (e.g., "round", "bevel", "miter").
