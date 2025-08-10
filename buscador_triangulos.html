@@ -423,7 +423,6 @@
                 <select id="tipoTriangulo">
                     <option value="all">Todos los Triángulos</option>
                     <option value="right">Triángulos Rectángulos</option>
-                    <option value="axis-aligned">Alineados al Eje</option>
                 </select>
             </div>
             
@@ -440,18 +439,8 @@
                     <svg class="svg-overlay" id="svgOverlay"></svg>
                 </div>
             </div>
-        </div>
-        
-        <div class="contenedor-progreso" id="contenedorProgreso" style="display: none;">
-            <h3>Progreso del Análisis</h3>
-            <div class="barra-progreso">
-                <div class="relleno-progreso" id="rellenoProgreso"></div>
-            </div>
-            <div class="triangulo-actual" id="trianguloActual">Listo para comenzar...</div>
-            <div id="textoProgreso">0 / 0 triángulos analizados</div>
-        </div>
-        
-        <div class="resultados" id="resultados">
+
+            <div class="resultados" id="resultados">
             <h3>Resultados</h3>
             <div class="estadisticas">
                 <div class="item-estadistica">
@@ -472,6 +461,18 @@
                 </div>
             </div>
         </div>
+        </div>
+        
+        <div class="contenedor-progreso" id="contenedorProgreso" style="display: none;">
+            <h3>Progreso del Análisis</h3>
+            <div class="barra-progreso">
+                <div class="relleno-progreso" id="rellenoProgreso"></div>
+            </div>
+            <div class="triangulo-actual" id="trianguloActual">Listo para comenzar...</div>
+            <div id="textoProgreso">0 / 0 triángulos analizados</div>
+        </div>
+        
+        
         
         <div class="informacion">
             <h4>Cómo funciona:</h4>
@@ -577,19 +578,6 @@
             return Math.abs(lados[0] + lados[1] - lados[2]) < 0.0001;
         }
         
-        function estaAlineadoAlEje(p1, p2, p3) {
-            const puntos = [p1, p2, p3];
-            
-            for (let i = 0; i < 3; i++) {
-                const a = puntos[i];
-                const b = puntos[(i + 1) % 3];
-                
-                if (a[0] === b[0] || a[1] === b[1]) {
-                    return true;
-                }
-            }
-            return false;
-        }
         
         function filtrarTriangulos(triangulos, tipo) {
             return triangulos.filter(triangulo => {
@@ -599,8 +587,7 @@
                         return true;
                     case 'right':
                         return esTrianguloRectangulo(p1, p2, p3);
-                    case 'axis-aligned':
-                        return estaAlineadoAlEje(p1, p2, p3);
+                    
                     default:
                         return true;
                 }
