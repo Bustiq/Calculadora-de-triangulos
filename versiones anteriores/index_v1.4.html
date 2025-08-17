@@ -65,67 +65,9 @@
         
         .botones-control {
             display: flex;
-            flex-direction: row;
-            gap: 10px;
-            margin-bottom: 25px;
-            justify-content: center;
-        }
-        
-        .botones-control button {
-            flex: 1;
-            min-width: 0;
-            padding: 10px 15px;
-        }
-        
-        /* Estilos para filtros de triángulos */
-        .filtros-triangulos {
-            margin-bottom: 30px;
-        }
-        
-        .seccion-filtros {
-            margin-bottom: 20px;
-        }
-        
-        .seccion-filtros h4 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #6c757d;
-            margin-bottom: 12px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .botones-filtros {
-            display: flex;
             flex-direction: column;
-            gap: 8px;
-        }
-        
-        .boton-filtro {
-            padding: 10px 15px;
-            border: 2px solid #4A90E2;
-            border-radius: 8px;
-            background: #4A90E2;
-            color: white;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-        }
-        
-        .boton-filtro:hover {
-            transform: translateY(-1px);
-        }
-        
-        .boton-filtro.inactivo {
-            background: transparent;
-            color: #4A90E2;
-        }
-        
-        .boton-filtro.inactivo:hover {
-            background: #f8f9fa;
+            gap: 15px;
+            margin-top: 25px;
         }
         
         label {
@@ -205,6 +147,18 @@
             color: #6c757d;
             cursor: not-allowed;
             transform: none;
+        }
+        
+        select {
+            padding: 10px 15px;
+            background: white;
+            color: #495057;
+            cursor: pointer;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #4A90E2;
         }
         
         .seccion-matriz {
@@ -367,7 +321,7 @@
             background: white;
             border-radius: 12px;
             padding: 30px;
-            margin: 30px 0;
+            margin: 40px 0;
             border: 1px solid #e9ecef;
         }
         
@@ -437,17 +391,6 @@
             .separador-estadistica {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
-            
-            .botones-filtros {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .boton-filtro {
-                flex: 1;
-                min-width: 120px;
-            }
         }
         
         @media (max-width: 768px) {
@@ -477,10 +420,6 @@
                 height: 15px;
                 border-width: 2px;
             }
-            
-            .botones-filtros {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -488,26 +427,10 @@
     <div class="container">
         <h1>Buscador Automático de Triángulos</h1>
         
-        <div class="contenedor-progreso" id="contenedorProgreso">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h3 style="margin: 0;">Progreso</h3>
-                <div class="triangulo-actual" id="trianguloActual" style="margin: 0; padding: 8px 12px; font-size: 0.9rem; background: #f8f9fa; border-radius: 6px; color: #495057; border: 1px solid #e9ecef;">Listo para comenzar...</div>
-            </div>
-            <div class="barra-progreso">
-                <div class="relleno-progreso" id="rellenoProgreso"></div>
-            </div>
-        </div>
-        
         <div class="contenido-principal">
             <!-- Panel de Controles (Izquierda) -->
             <div class="panel-controles">
                 <h3>Controles</h3>
-                
-                <div class="botones-control">
-                    <button onclick="iniciarAnalisis()" id="btnIniciar">▶</button>
-                    <button onclick="detenerAnalisis()" id="btnDetener" disabled>⬜</button>
-                    <button onclick="reiniciarMatriz()" id="btnReiniciar">↺</button>
-                </div>
                 
                 <div class="grupo-control">
                     <label for="tamañoMatriz">Tamaño:</label>
@@ -520,27 +443,18 @@
                     <span class="mostrar-velocidad" id="mostrarVelocidad">5x</span>
                 </div>
                 
-                <!-- Filtros de triángulos -->
-                <div class="filtros-triangulos">
-                    <div class="seccion-filtros">
-                        <h4>Por Lados</h4>
-                        <div class="botones-filtros">
-                            <button class="boton-filtro" data-tipo="equilatero">Equilátero</button>
-                            <button class="boton-filtro" data-tipo="escaleno">Escaleno</button>
-                        </div>
-                        <div style="font-size: 0.8rem; color: #6c757d; text-align: center; margin-top: 10px; padding: 8px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
-                            <em>Es imposible que se formen triángulos isósceles</em>
-                        </div>
-                    </div>
-                    
-                    <div class="seccion-filtros">
-                        <h4>Por Ángulos</h4>
-                        <div class="botones-filtros">
-                            <button class="boton-filtro" data-tipo="rectangulo">Rectángulo</button>
-                            <button class="boton-filtro" data-tipo="acutangulo">Acutángulo</button>
-                            <button class="boton-filtro" data-tipo="obtusangulo">Obtusángulo</button>
-                        </div>
-                    </div>
+                <div class="grupo-control">
+                    <label for="tipoTriangulo">Tipo de triángulo:</label>
+                    <select id="tipoTriangulo">
+                        <option value="all">Todos los triángulos</option>
+                        <option value="right">Triángulos rectángulos</option>
+                    </select>
+                </div>
+                
+                <div class="botones-control">
+                    <button onclick="iniciarAnalisis()" id="btnIniciar">▶</button>
+                    <button onclick="detenerAnalisis()" id="btnDetener" disabled>⬜</button>
+                    <button onclick="reiniciarMatriz()" id="btnReiniciar">↺</button>
                 </div>
             </div>
             
@@ -558,6 +472,11 @@
                     <h3>Resultados</h3>
                     <div class="estadisticas">
                         <div class="separador-estadistica">
+                            
+                            <!--div class="item-estadistica">
+                                <span class="numero-estadistica" id="totalPuntos">0</span>
+                                Puntos totales
+                            </div-->
                             <div class="item-estadistica">
                                 <span class="numero-estadistica" id="totalCombinaciones">0</span>
                                 Combinaciones Posibles
@@ -568,12 +487,21 @@
                             </div>
                             <div class="item-estadistica">
                                 <span class="numero-estadistica" id="triangulosFiltrados">0</span>
-                                Coinciden con Filtros
+                                Coinciden con Criterio
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="contenedor-progreso" id="contenedorProgreso" style="display: none;">
+            <h3>Progreso del análisis</h3>
+            <div class="barra-progreso">
+                <div class="relleno-progreso" id="rellenoProgreso"></div>
+            </div>
+            <div class="triangulo-actual" id="trianguloActual">Listo para comenzar...</div>
+            <div id="textoProgreso">0 / 0 triángulos analizados</div>
         </div>
     </div>
 
@@ -584,15 +512,6 @@
         let indiceTrianguloActual = 0;
         let intervaloAnimacion = null;
         let estaAnalizando = false;
-        
-        // Estado de los filtros (todos activos por defecto)
-        let filtrosActivos = {
-            equilatero: true,
-            escaleno: true,
-            rectangulo: true,
-            acutangulo: true,
-            obtusangulo: true
-        };
         
         function generarMatriz() {
             n = parseInt(document.getElementById('tamañoMatriz').value);
@@ -668,82 +587,33 @@
             return area > 0;
         }
         
-        function distanciaCuadrada(a, b) {
-            return (a[0]-b[0])**2 + (a[1]-b[1])**2;
-        }
-        
-        // Clasificación por lados
-        function esTrianguloEquilatero(p1, p2, p3) {
-            const d1 = distanciaCuadrada(p1, p2);
-            const d2 = distanciaCuadrada(p2, p3);
-            const d3 = distanciaCuadrada(p3, p1);
-            
-            return d1 === d2 && d2 === d3;
-        }
-        
-        function esTrianguloIsosceles(p1, p2, p3) {
-            const d1 = distanciaCuadrada(p1, p2);
-            const d2 = distanciaCuadrada(p2, p3);
-            const d3 = distanciaCuadrada(p3, p1);
-            
-            return (d1 === d2 || d2 === d3 || d3 === d1) && !(d1 === d2 && d2 === d3);
-        }
-        
-        function esTrianguloEscaleno(p1, p2, p3) {
-            const d1 = distanciaCuadrada(p1, p2);
-            const d2 = distanciaCuadrada(p2, p3);
-            const d3 = distanciaCuadrada(p3, p1);
-            
-            return d1 !== d2 && d2 !== d3 && d3 !== d1;
-        }
-        
-        // Clasificación por ángulos
         function esTrianguloRectangulo(p1, p2, p3) {
+            function distanciaCuadrada(a, b) {
+                return (a[0]-b[0])**2 + (a[1]-b[1])**2;
+            }
+            
             const d1 = distanciaCuadrada(p1, p2);
             const d2 = distanciaCuadrada(p2, p3);
             const d3 = distanciaCuadrada(p3, p1);
             
             const lados = [d1, d2, d3].sort((a, b) => a - b);
-            return lados[0] + lados[1] === lados[2];
+            return Math.abs(lados[0] + lados[1] - lados[2]) < 0.0001;
         }
         
-        function esTrianguloAcutangulo(p1, p2, p3) {
-            const d1 = distanciaCuadrada(p1, p2);
-            const d2 = distanciaCuadrada(p2, p3);
-            const d3 = distanciaCuadrada(p3, p1);
-            
-            const lados = [d1, d2, d3].sort((a, b) => a - b);
-            return lados[0] + lados[1] > lados[2];
-        }
         
-        function esTrianguloObtusangulo(p1, p2, p3) {
-            const d1 = distanciaCuadrada(p1, p2);
-            const d2 = distanciaCuadrada(p2, p3);
-            const d3 = distanciaCuadrada(p3, p1);
-            
-            const lados = [d1, d2, d3].sort((a, b) => a - b);
-            return lados[0] + lados[1] < lados[2];
-        }
-        
-        function clasificarTriangulo(p1, p2, p3) {
-            const tipos = [];
-            
-            // Por lados
-            if (esTrianguloEquilatero(p1, p2, p3)) tipos.push('equilatero');
-            else if (esTrianguloIsosceles(p1, p2, p3)) tipos.push('isosceles');
-            else tipos.push('escaleno');
-            
-            // Por ángulos
-            if (esTrianguloRectangulo(p1, p2, p3)) tipos.push('rectangulo');
-            else if (esTrianguloAcutangulo(p1, p2, p3)) tipos.push('acutangulo');
-            else tipos.push('obtusangulo');
-            
-            return tipos;
-        }
-        
-        function cumpleFiltros(triangulo) {
-            const tipos = clasificarTriangulo(...triangulo);
-            return tipos.some(tipo => filtrosActivos[tipo]);
+        function filtrarTriangulos(triangulos, tipo) {
+            return triangulos.filter(triangulo => {
+                const [p1, p2, p3] = triangulo;
+                switch (tipo) {
+                    case 'all':
+                        return true;
+                    case 'right':
+                        return esTrianguloRectangulo(p1, p2, p3);
+                    
+                    default:
+                        return true;
+                }
+            });
         }
         
         function obtenerPosicionPunto(fila, col) {
@@ -815,6 +685,8 @@
         function actualizarProgreso() {
             const progreso = (indiceTrianguloActual / todosTriangulos.length) * 100;
             document.getElementById('rellenoProgreso').style.width = progreso + '%';
+            document.getElementById('textoProgreso').textContent = 
+                `${indiceTrianguloActual} / ${todosTriangulos.length} triángulos analizados`;
             
             if (indiceTrianguloActual < todosTriangulos.length) {
                 const triangulo = todosTriangulos[indiceTrianguloActual];
@@ -828,10 +700,12 @@
             const puntos = obtenerTodosPuntos();
             const totalCombinaciones = (puntos.length * (puntos.length - 1) * (puntos.length - 2)) / 6;
             
+            //document.getElementById('totalPuntos').textContent = puntos.length;
             document.getElementById('totalCombinaciones').textContent = totalCombinaciones;
             document.getElementById('triangulosValidos').textContent = triangulosValidos.length;
             
-            const filtrados = triangulosValidos.filter(cumpleFiltros);
+            const tipoTriangulo = document.getElementById('tipoTriangulo').value;
+            const filtrados = filtrarTriangulos(triangulosValidos, tipoTriangulo);
             document.getElementById('triangulosFiltrados').textContent = filtrados.length;
         }
         
@@ -841,6 +715,7 @@
             estaAnalizando = true;
             document.getElementById('btnIniciar').disabled = true;
             document.getElementById('btnDetener').disabled = false;
+            document.getElementById('contenedorProgreso').style.display = 'block';
             
             todosTriangulos = obtenerTodasCombinacionesTriangulos();
             triangulosValidos = [];
@@ -896,28 +771,10 @@
         function reiniciarMatriz() {
             detenerAnalisis();
             generarMatriz();
+            document.getElementById('contenedorProgreso').style.display = 'none';
             todosTriangulos = [];
             triangulosValidos = [];
             indiceTrianguloActual = 0;
-            document.getElementById('trianguloActual').textContent = 'Listo para comenzar...';
-            document.getElementById('rellenoProgreso').style.width = '0%';
-        }
-        
-        // Manejo de filtros
-        function toggleFiltro(tipo) {
-            filtrosActivos[tipo] = !filtrosActivos[tipo];
-            const boton = document.querySelector(`[data-tipo="${tipo}"]`);
-            boton.classList.toggle('inactivo', !filtrosActivos[tipo]);
-            actualizarEstadisticas();
-        }
-        
-        function inicializarFiltros() {
-            document.querySelectorAll('.boton-filtro').forEach(boton => {
-                const tipo = boton.getAttribute('data-tipo');
-                boton.addEventListener('click', () => toggleFiltro(tipo));
-                // Todos los filtros empiezan activos
-                boton.classList.remove('inactivo');
-            });
         }
         
         // Actualizar mostrar velocidad
@@ -926,11 +783,7 @@
         });
         
         // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
-            inicializarFiltros();
-            generarMatriz();
-        });
-        
+        generarMatriz();
     </script>
 </body>
 </html>
