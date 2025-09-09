@@ -54,6 +54,7 @@
         .panel-controles {
             background-color: #CCE4F5;
             border-radius: 12px;
+            /*border: 1px solid #B3D6F0;*/
             padding: 30px;
         }
         
@@ -66,7 +67,7 @@
         
         .grupo-control {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             gap: 8px;
             margin-bottom: 20px;
@@ -121,7 +122,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
-            border: none;
         }
         
         .boton-filtro:hover {
@@ -131,7 +131,6 @@
         .boton-filtro.inactivo {
             background: transparent;
             color: #00BFA6;
-            border: 1px solid #00BFA6;
         }
         
         .boton-filtro.inactivo:hover {
@@ -220,6 +219,7 @@
         .seccion-matriz {
             background-color: #CCE4F5;
             border-radius: 12px;
+            /*border: 1px solid #B3D6F0;*/
             padding: 30px;
             border-radius: 12px;
             text-align: center;
@@ -227,7 +227,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            overflow-x: auto;
         }
         
         .seccion-matriz h3 {
@@ -239,6 +238,7 @@
         .panel-resultados {
             background-color: #CCE4F5;
             border-radius: 12px;
+            /*border: 1px solid #B3D6F0;*/
             padding: 30px;
             border-radius: 12px;
         }
@@ -262,14 +262,13 @@
         .matriz {
             position: relative;
             z-index: 2;
-            display: inline-block;
         }
         
         .fila {
             display: flex;
             flex-direction: row;
-            gap: var(--gap-size, 5px);
-            margin-bottom: var(--gap-size, 5px);
+            gap: 3px;
+            margin-bottom: 3px;
         }
         
         .fila:last-child {
@@ -277,8 +276,8 @@
         }
         
         .celda {
-            width: var(--cell-size, 50px);
-            height: var(--cell-size, 50px);
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -286,10 +285,11 @@
         }
         
         .punto {
-            width: var(--point-size, 12px);
-            height: var(--point-size, 12px);
-            border: 2px solid #2E3440;
+            width: 10px;
+            height: 10px;
+            border: 3px solid #2E3440;
             border-radius: 50%;
+            border-width: 2px;
             background: #2E3440;
             transition: all 0.3s ease;
             position: relative;
@@ -300,7 +300,7 @@
             border-color: #FF6B6B !important;
             background: #FF6B6B !important;
             animation: pulso 1s infinite;
-            transform: scale(1.3);
+            transform: scale(1.2);
             z-index: 10;
         }
         
@@ -326,18 +326,16 @@
         }
         
         .triangulo-line {
-            stroke-width: 4;
+            stroke-width: 3;
             fill: none;
         }
         
         .triangulo-valido {
             stroke: #00BFA6;
-            stroke-dasharray: none;
         }
         
         .triangulo-invalido {
             stroke: #FF6B6B;
-            stroke-dasharray: 8,4;
         }
         
         .resultados {
@@ -359,6 +357,7 @@
             padding: 20px;
             background: #E6F2FA;
             border-radius: 8px;
+            /*border: 1px solid #e9ecef;*/
             text-align: center;
         }
 
@@ -390,6 +389,7 @@
         .contenedor-progreso {
             background-color: #CCE4F5;
             border-radius: 12px;
+            /*border: 1px solid #B3D6F0;*/
             border-radius: 12px;
             padding-right: 30px;
             padding-left: 30px;
@@ -440,52 +440,6 @@
         #textoProgreso {
             color: #6c757d;
             font-size: 0.95rem;
-        }
-
-        /* Control de espaciado */
-        .control-espaciado {
-            margin-bottom: 20px;
-        }
-        
-        .control-espaciado h4 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #6c757d;
-            margin-bottom: 12px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .espaciado-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .espaciado-control {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .espaciado-control label {
-            font-size: 0.8rem;
-            flex: 1;
-            text-align: left;
-        }
-        
-        .espaciado-control input[type="range"] {
-            width: 100px;
-        }
-        
-        .espaciado-valor {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #4A90E2;
-            min-width: 35px;
-            text-align: right;
         }
         
         /* Responsive adjustments */
@@ -540,6 +494,11 @@
                 font-size: 2rem;
             }
             
+            .celda {
+                width: 35px;
+                height: 35px;
+            }
+            
             .botones-filtros {
                 flex-direction: column;
             }
@@ -551,6 +510,12 @@
     <div class="container">
 
         <h1>Buscador Automático de Triángulos</h1>
+        
+        <!--div class="contenedor-progreso" id="contenedorProgreso">   
+            <div class="barra-progreso">
+                <div class="relleno-progreso" id="rellenoProgreso"></div>
+            </div>
+        </div-->
         
         <div class="contenido-principal">
             <!-- Panel de Controles (Izquierda) -->
@@ -565,26 +530,13 @@
                 
                 <div class="grupo-control">
                     <label for="tamañoMatriz">Tamaño:</label>
-                    <input type="number" id="tamañoMatriz" value="4" min="2" max="8" onchange="generarMatriz()">
-                    <label>x</label>
-                    <input type="number">
+                    <input type="number" id="tamañoMatriz" value="4" min="3" max="8">
                 </div>
                 
                 <div class="grupo-control">
                     <label for="velocidadAnimacion">Velocidad:</label>
                     <input type="range" id="velocidadAnimacion" min="1" max="10" value="5">
                     <span class="mostrar-velocidad" id="mostrarVelocidad">5x</span>
-                </div>
-                
-                <!-- Controles de espaciado -->
-                <div class="control-espaciado">
-                    <div class="espaciado-controls">
-                        <div class="espaciado-control">
-                            <label for="separacion">Separación:</label>
-                            <input type="range" id="separacion" min="2" max="100" value="8" oninput="actualizarEspaciado()">
-                            <span class="espaciado-valor" id="valorSeparacion">8px</span>
-                        </div>
-                    </div>
                 </div>
                 
                 <!-- Filtros de triángulos -->
@@ -671,56 +623,13 @@
             acutangulo: true,
             obtusangulo: true
         };
-
-        // Configuraciones predefinidas de espaciado según tamaño de matriz
-        const configuracionesEspaciado = {
-            2: { separacion: 100 },
-            3: { separacion: 100 },
-            4: { separacion: 100 },
-            5: { separacion: 75 },
-            6: { separacion: 50 },
-            7: { separacion: 40 },
-            8: { separacion: 25 }
-        };
-        
-        function actualizarEspaciado() {
-            const separacion = document.getElementById('separacion').value;
-            
-            // Actualizar valor mostrado
-            document.getElementById('valorSeparacion').textContent = separacion + 'px';
-            
-            // Aplicar estilo CSS personalizado
-            const matriz = document.getElementById('matriz');
-            matriz.style.setProperty('--gap-size', separacion + 'px');
-            
-            // Actualizar SVG
-            setTimeout(() => {
-                const matrizContainer = document.querySelector('.matriz-container');
-                const svg = document.getElementById('svgOverlay');
-                const rect = matrizContainer.getBoundingClientRect();
-                svg.setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
-                svg.style.width = rect.width + 'px';
-                svg.style.height = rect.height + 'px';
-            }, 100);
-        }
-
-        function aplicarConfiguracionPredefinida(tamaño) {
-            const config = configuracionesEspaciado[tamaño];
-            if (config) {
-                document.getElementById('separacion').value = config.separacion;
-                actualizarEspaciado();
-            }
-        }
         
         function generarMatriz() {
             n = parseInt(document.getElementById('tamañoMatriz').value);
-            if (n < 2 || n > 8) {
-                alert('Por favor ingresa un tamaño de matriz entre 2 y 8');
+            if (n < 3 || n > 8) {
+                alert('Por favor ingresa un tamaño de matriz entre 3 y 8');
                 return;
             }
-            
-            // Aplicar configuración predefinida
-            aplicarConfiguracionPredefinida(n);
             
             renderizarMatriz();
             actualizarEstadisticas();
@@ -748,15 +657,11 @@
                 divMatriz.appendChild(fila);
             }
             
-            // Actualizar el tamaño del SVG después de que se renderice
-            setTimeout(() => {
-                const matrizContainer = document.querySelector('.matriz-container');
-                const svg = document.getElementById('svgOverlay');
-                const rect = matrizContainer.getBoundingClientRect();
-                svg.setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
-                svg.style.width = rect.width + 'px';
-                svg.style.height = rect.height + 'px';
-            }, 100);
+            // Actualizar el tamaño del SVG
+            const matrizContainer = document.querySelector('.matriz-container');
+            const svg = document.getElementById('svgOverlay');
+            const rect = matrizContainer.getBoundingClientRect();
+            svg.setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
         }
         
         function obtenerTodosPuntos() {
@@ -829,7 +734,7 @@
             const d3 = distanciaCuadrada(p3, p1);
             
             const lados = [d1, d2, d3].sort((a, b) => a - b);
-            return Math.abs(lados[0] + lados[1] - lados[2]) < 0.001;
+            return lados[0] + lados[1] === lados[2];
         }
         
         function esTrianguloAcutangulo(p1, p2, p3) {
@@ -940,6 +845,7 @@
         function actualizarProgreso() {
             const progreso = (indiceTrianguloActual / todosTriangulos.length) * 100;
             document.getElementById('rellenoProgreso').style.width = progreso + '%';
+            
         }
         
         function actualizarEstadisticas() {
@@ -1014,6 +920,7 @@
             todosTriangulos = [];
             triangulosValidos = [];
             indiceTrianguloActual = 0;
+            document.getElementById('trianguloActual').textContent = 'Listo para comenzar...';
             document.getElementById('rellenoProgreso').style.width = '0%';
         }
         
@@ -1043,8 +950,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             inicializarFiltros();
             generarMatriz();
-            actualizarEspaciado();
         });
+        
     </script>
 </body>
 </html>
